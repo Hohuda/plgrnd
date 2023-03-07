@@ -2,7 +2,9 @@
   "name": "khokhuda-playground",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "pnpm nx run-many --targets=build"
+  },
   "private": true,
   "dependencies": {
     "react": "18.2.0",
