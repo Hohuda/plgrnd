@@ -20,7 +20,9 @@ Visit the [Nx Documentation](https://nx.dev) to learn more.
 
 # Installation
 
-1. This workspace uses `pnpm` as package manager, so install pnpm first. Use the [pnpm installation manual](https://pnpm.io/installation).
-2. Install recommended extensions (VSCode, Optional). See recommended VSCode notification at the right bottom of the window or open extensions and search `@recommended`.
+1. This workspace uses `pnpm` as package manager.  
+   So install pnpm first. Use the [pnpm installation manual](https://pnpm.io/installation).
+2. Install recommended extensions (VSCode, Optional).  
+   See recommended VSCode notification at the right bottom of the window or open extensions and search `@recommended`.
 3. Run `pnpm install`
 4. Run `pnpm run build`
