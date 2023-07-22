@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
+    "maxNodeModuleJsDepth": 0 // works only with allowJs enabled
+  }
+}

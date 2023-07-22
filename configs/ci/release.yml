@@ -1,0 +1,290 @@
+recache-release:
+  stage: prepare
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  # TODO: ensure environments is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  when: manual
+  allow_failure: true
+  script:
+    - rm -rf node_modules
+    - rm -rf tmp/nx-cache
+    - mkdir -p tmp/nx-cache
+    - yarn install --frozen-lockfile
+    - yarn cache clean
+
+#----------------------------------------------------------------------------------------
+
+format-release:
+  stage: format
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  # TODO: ensure environments is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  when: manual
+  allow_failure: true
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx format:check --all
+
+#----------------------------------------------------------------------------------------
+
+lint-release:
+  stage: lint
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  # TODO: ensure environment is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  when: manual
+  allow_failure: true
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t lint --skip-nx-cache --parallel=3
+
+#----------------------------------------------------------------------------------------
+
+test-release:
+  stage: test
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+    # TODO: ensure environment is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  when: manual
+  allow_failure: true
+  artifacts:
+    paths:
+      - coverage
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t test -c ci --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-release:
+  stage: build
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  environment:
+    name: beta
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t build -c production --deployUrl=$NX_EXAMPLE_APP_URL  --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-release-beta-hot:
+  stage: build
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  environment:
+    name: beta-hot
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t build -c production --deployUrl=$NX_EXAMPLE_APP_URL  --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-release-staging:
+  stage: build
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  environment:
+    name: staging
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t build -c production --deployUrl=$NX_EXAMPLE_APP_URL  --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-release:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - deploy
+  environment:
+    name: beta
+    action: start
+  needs: ["build-release"]
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-release-beta-hot:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - deploy
+  environment:
+    name: beta-hot
+    action: start
+  when: manual
+  needs: ["build-release-beta-hot"]
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-release-staging:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - /^release\/.*$/
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: release-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - deploy
+  environment:
+    name: staging
+    action: start
+  when: manual
+  needs: ["build-release-staging"]
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force

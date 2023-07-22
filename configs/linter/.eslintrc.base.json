@@ -1,0 +1,108 @@
+{
+  "root": true,
+  "ignorePatterns": ["!**/*"],
+  "plugins": ["@nrwl/nx", "sort-exports", "sort-export-all"],
+  "extends": ["plugin:@nrwl/nx/react"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ],
+        "sort-exports/sort-exports": [
+          "error",
+          { "sortDir": "asc", "sortExportKindFirst": "value" }
+        ],
+        "sort-export-all/sort-export-all": "error"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "airbnb-base",
+        "airbnb-typescript/base",
+        "plugin:@nrwl/nx/typescript",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "import/no-named-as-default": "off",
+        "consistent-return": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              "parent",
+              "sibling",
+              "index",
+              "object",
+              "type",
+              "unknown"
+            ],
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            }
+          }
+        ],
+        "import/extensions": ["off"],
+        "sort-exports/sort-exports": [
+          "error",
+          { "sortDir": "asc", "sortExportKindFirst": "value" }
+        ],
+        "sort-export-all/sort-export-all": "error"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": [
+        "airbnb-base",
+        "plugin:@nrwl/nx/javascript",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              ["sibling", "parent"],
+              "index",
+              "unknown"
+            ],
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            }
+          }
+        ],
+        "sort-exports/sort-exports": [
+          "error",
+          { "sortDir": "asc", "sortExportKindFirst": "value" }
+        ],
+        "sort-export-all/sort-export-all": "error"
+      }
+    }
+  ]
+}

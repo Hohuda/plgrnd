@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.test.tsx", "*.test.ts"],
+      "extends": [
+        "airbnb-base",
+        "airbnb-typescript/base",
+        "plugin:@nrwl/nx/typescript",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "import/no-named-as-default": "off",
+        "consistent-return": "off",
+        "import/first": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "import/extensions": ["off"],
+        "sort-exports/sort-exports": [
+          "error",
+          { "sortDir": "asc", "sortExportKindFirst": "value" }
+        ],
+        "sort-export-all/sort-export-all": "error"
+      }
+    }
+  ]
+}

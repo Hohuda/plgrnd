@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "../../dist/types",
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "emitBOM": false,
+    "emitDeclarationOnly": false, // allows to disable ts -> js transpilation, if another transpiler is used
+    "importHelpers": true, // tslib runtime required for this to work
+    "importsNotUsedAsValues": "error",
+    "inlineSourceMap": false,
+    "inlineSources": false,
+    "mapRoot": "../../dist/mapRoot", // can be configured for debugging
+    // "newLine": "lf",
+    // "noEmit": true, // if SWC will be used
+    "noEmitHelpers": false,
+    "noEmitOnError": false,
+    "outDir": "../../dist", // can be specified in custom build routine
+    // "outFile": "", // used only for module none, AMD, System
+    "preserveConstEnums": false,
+    "preserveValueImports": false, // may be turned on with isolatedModules
+    "removeComments": false,
+    "sourceMap": true,
+    "sourceRoot": "../../dist/sourceRoot", // can be configured for debugging
+    "stripInternal": false // should be disabled in most cases
+  }
+}

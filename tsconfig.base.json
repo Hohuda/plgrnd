@@ -1,23 +1,23 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
+  "buildOnSave": true,
+  "extends": "./tsconfig.common.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./../node_modules/@types/",
+      "./../../node_modules/@types/",
+      "./types/"
+    ],
     "paths": {
-      "@khokhuda-playground/mylib1": ["libs/mylib1/src/index.ts"],
-      "@khokhuda-playground/react-lib-1": ["libs/react-lib-1/src/index.ts"]
+      "@plgrnd/example-ts-lib": ["2.libs/example-ts-lib/src/index.ts"],
+      "@plgrnd/tools": ["tools/index.ts"]
     }
   },
-  "exclude": ["tmp"]
+  "exclude": ["../../tmp", "../../dist"],
+  "files": [
+    "./node_modules/@nrwl/react/typings/cssmodule.d.ts",
+    "./node_modules/@nrwl/react/typings/image.d.ts",
+    "./types/webpack-nomodule-plugin.d.ts"
+  ]
 }

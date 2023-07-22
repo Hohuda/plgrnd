@@ -1,0 +1,29 @@
+{
+  "overrides": [
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.test.tsx", "*.test.ts"],
+      "extends": [
+        "airbnb",
+        "airbnb-typescript",
+        "plugin:@nrwl/nx/react-typescript",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "import/no-named-as-default": "off",
+        "consistent-return": "off",
+        "import/first": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "import/extensions": ["off"],
+        "react/require-default-props": ["off"],
+        "sort-exports/sort-exports": [
+          "error",
+          { "sortDir": "asc", "sortExportKindFirst": "value" }
+        ],
+        "sort-export-all/sort-export-all": "error"
+      }
+    }
+  ]
+}

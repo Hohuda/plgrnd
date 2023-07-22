@@ -1,0 +1,185 @@
+{
+  "name": "example-webpack-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "./1.apps/example-webpack-app/src",
+  "projectType": "application",
+  "tags": ["scope:example-webpack-app"],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        // nx managed webpack entries
+        "outputPath": "dist/1.apps/example-webpack-app",
+        "outputFileName": "main.js", // recheck if hash appeared next to file name in build
+        "main": "1.apps/example-webpack-app/src/main.tsx",
+        "polyfills": "1.apps/example-webpack-app/src/polyfills.ts",
+
+        // is not needed because of nx powered withReact
+        // commented in favor of vendorChunk option
+        // "additionalEntryPoints": [
+        //   {
+        //     "entryName": "vendor",
+        //     "entryPath": "./src/vendor.ts"
+        //   }
+        // ],
+
+        // nx managed assets, configures copywebpack plugin under the hood
+        "assets": [
+          {
+            "input": "1.apps/example-webpack-app/assets",
+            "glob": "*",
+            "output": "assets/[name][ext]",
+            "ignore": []
+          }
+        ],
+
+        // #region diagnostics
+
+        // nx managed webpack progress plugin, research this topic
+        "progress": true,
+        "verbose": true,
+        // nx managed statistics? needs research
+        // probably we aren't gonna need it
+        "statsJson": false,
+
+        // #endregion diagnostics
+
+        // #region library specific
+
+        // nx managed licenses, research this topic
+        "extractLicenses": false,
+        // nx managed options that maybe usefull for libraries
+        "generatePackageJson": false,
+
+        // #endregion library specific
+
+        "target": "web",
+        "externalDependencies": "none", // research maybe usefull for libraries
+
+        "outputHashing": "all",
+        "sourceMap": true, // research
+
+        // #region watch
+
+        "watch": false,
+        // "poll": 0,
+
+        // #endregion watch
+
+        // #region resolve
+        "fileReplacements": [],
+        // #endregion resolve
+
+        "tsConfig": "1.apps/example-webpack-app/tsconfig.json",
+
+        "optimization": true,
+        "compiler": "swc",
+
+        // nx webpack executor specific configuration
+        "isolatedConfig": true,
+
+        // #region web/react specific
+        "subresourceIntegrity": true,
+        "extractCss": true,
+        // "postcssConfig": "1.apps/example-webpack-app/postcss.config.ts",
+        "runtimeChunk": true,
+        "vendorChunk": true,
+        "commonChunk": true,
+        "namedChunks": true,
+
+        // #endregion
+        "index": "1.apps/example-webpack-app/src/routes/index.html",
+        "webpackConfig": "1.apps/example-webpack-app/webpack.config.ts",
+        "baseHref": "/",
+        "scripts": [],
+        "styles": [],
+
+        "deleteOutputPath": true,
+
+        "generateIndexHtml": false
+        // "babelConfig": "",
+        // "babelUpwardRootMode": false,
+        // "crossOrigin": "",
+        // "deployUrl": "",
+        // "postcssConfig": "",
+        // "stylePreprocessorOptions": {}
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "resolve": {}
+        },
+        "production": {
+          "outputHashing": "all"
+        }
+      }
+    },
+    "ensure-certs": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/ssl-certs"],
+      "options": {
+        "commands": ["yarn ts-node scripts/ensure-certs.ts"],
+        "readyWhen": "DONE"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "dependsOn": ["ensure-certs"],
+      "options": {
+        "buildTarget": "example-webpack-app:build",
+        "hmr": true,
+        "host": "localhost",
+        "port": 3000,
+        "baseHref": "/",
+        "ssl": true,
+        "sslCert": "dist/ssl-certs/localhost/.cert",
+        "sslKey": "dist/ssl-certs/localhost/.key"
+        // "memoryLimit": 1024
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "example-webpack-app:build:development"
+        },
+        "production": {
+          "buildTarget": "example-webpack-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-bundle": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build", "ensure-certs"],
+      "options": {
+        "commands": [
+          "yarn ts-node scripts/serve-bundle.ts --buildDirPath='dist/1.apps/example-webpack-app'"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "./1.apps/example-webpack-app/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "1.apps/example-webpack-app/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  }
+}

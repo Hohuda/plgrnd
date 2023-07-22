@@ -1,0 +1,2 @@
+variables:
+  NX_ENV_VAR: $NX_ENV_VAR

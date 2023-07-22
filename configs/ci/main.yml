@@ -1,0 +1,349 @@
+recache-main:
+  stage: prepare
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  # TODO: ensure environments is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  script:
+    - rm -rf node_modules
+    - rm -rf tmp/nx-cache
+    - rm -rf .pnpm-store
+    - mkdir -p tml/nx-cache
+    - pnpm install
+
+#----------------------------------------------------------------------------------------
+
+format-main:
+  stage: format
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  # TODO: ensure environments is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx format:check --all
+
+#----------------------------------------------------------------------------------------
+
+lint-main:
+  stage: lint
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  # TODO: ensure environment is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t lint --skip-nx-cache --parallel=3
+
+#----------------------------------------------------------------------------------------
+
+test-main:
+  stage: test
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  # TODO: ensure environment is set
+  # environment:
+  #   name: staging
+  #   action: prepare
+  artifacts:
+    paths:
+      - coverage
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t test -c ci --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-main:
+  stage: build
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  environment:
+    name: production
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t build -c production --deployUrl=$NX_EXAMPLE_APP_URL --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-main-beta:
+  stage: build
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  environment:
+    name: beta
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t build -c production --deployUrl=$NX_EXAMPLE_APP_URL --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-main-beta-hot:
+  stage: build
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  environment:
+    name: beta-hot
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t build -c production --deployUrl=$NX_EXAMPLE_APP_URL --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-main-staging:
+  stage: build
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  environment:
+    name: staging
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - pnpm install --offline
+    - pnpm nx run-many -t build -c production --deployUrl=$NX_EXAMPLE_APP_URL --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-main:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - deploy
+  environment:
+    name: production
+    action: start
+  when: manual
+  needs: ["build-main"]
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-main-beta:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - deploy
+  environment:
+    name: beta
+    action: start
+  when: manual
+  needs: ["build-main-beta"]
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-main-beta-hot:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - deploy
+  environment:
+    name: beta-hot
+    action: start
+  when: manual
+  needs: ["build-main-beta-hot"]
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-main-staging:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - main
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: main-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - deploy
+  environment:
+    name: staging
+    action: start
+  when: manual
+  needs: ["build-main-staging"]
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "diagnostics": true,
+    "explainFiles": true,
+    "extendedDiagnostics": true,
+    "generateCpuProfile": "profile.cpuprofile",
+    "listEmittedFiles": true,
+    "listFiles": true,
+    "traceResolution": true
+  }
+}

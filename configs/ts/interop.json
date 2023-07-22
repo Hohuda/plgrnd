@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false, // for single-file transpilers which is swc
+    "preserveSymlinks": false, // needs research
+    "verbatimModuleSyntax": false
+  }
+}

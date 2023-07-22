@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "diagnostics": true,
+    "generateCpuProfile": "profile.cpuprofile"
+  }
+}

@@ -1,0 +1,112 @@
+recache-dev:
+  stage: prepare
+  only:
+    - dev
+  tags:
+    - build
+  environment:
+    name: staging
+    action: prepare
+  when: manual
+  allow_failure: true
+  script:
+    - rm -rf node_modules
+    - rm -rf tmp/nx-cache
+    - yarn install --frozen-lockfile
+    - yarn cache clean
+
+#----------------------------------------------------------------------------------------
+
+format-dev:
+  stage: format
+  only:
+    - dev
+  tags:
+    - build
+  environment:
+    name: staging
+    action: prepare
+  when: manual
+  allow_failure: true
+  script:
+    - apk update && apk add git
+    - yarn install --frozen-lockfile
+    - pnpm nx format:check --all
+
+#----------------------------------------------------------------------------------------
+
+lint-dev:
+  stage: lint
+  only:
+    - dev
+  tags:
+    - build
+  environment:
+    name: staging
+    action: prepare
+  when: manual
+  allow_failure: true
+  script:
+    - apk update && apk add git
+    - yarn install --frozen-lockfile
+    - pnpm nx run-many -t lint --skip-nx-cache --parallel=3
+
+#----------------------------------------------------------------------------------------
+
+test-dev:
+  stage: test
+  only:
+    - dev
+  tags:
+    - build
+  environment:
+    name: staging
+    action: prepare
+  when: manual
+  allow_failure: true
+  artifacts:
+    paths:
+      - coverage
+  script:
+    - apk update && apk add git
+    - yarn install --frozen-lockfile
+    - pnpm nx run-many -t test -c ci --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+build-dev:
+  stage: build
+  only:
+    - dev
+  tags:
+    - build
+  environment:
+    name: staging
+    action: prepare
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - yarn install --frozen-lockfile
+    - pnpm nx run-many -t build -c production --skip-nx-cache
+
+#----------------------------------------------------------------------------------------
+
+# TODO: https://name-coach.atlassian.net/browse/INT-808
+deploy-example-app-dev:
+  image: registry-staging.name-coach.com/namecoach/mturk-api-frontend/deploy:latest
+  stage: deploy
+  only:
+    - dev
+  tags:
+    - deploy
+  environment:
+    name: staging
+    action: start
+  variables:
+    TARGET_PATH: "${CI_ENVIRONMENT_NAME}/"
+    DISTRIBUTION_ID: $DISTRIBUTION_ID
+  script:
+    - apk update && apk add git
+    - s3deploy -v -bucket $EXAMPLE_APP_BUCKET -path $TARGET_PATH -source dist/1.apps/example-webpack-app -distribution-id $DISTRIBUTION_ID --force

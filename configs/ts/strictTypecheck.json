@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "alwaysStrict": true, // can be enabled by strict
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true, // can be enabled by strict
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true, // can be enabled by strict
+    "noPropertyAccessFromIndexSignature": false, // concessible, would be nice to have
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true, // strict,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true
+  }
+}

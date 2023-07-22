@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowUmdGlobalAccess": false,
+    "baseUrl": "../../.", // baseUrl path is relative to importing config path
+    "module": "esnext",
+    "moduleResolution": "nodenext",
+    "moduleSuffixes": [""],
+    "noResolve": false,
+    "paths": {}, // paths are relative to baseUrl
+    "resolveJsonModule": true,
+    "rootDir": "../../.",
+    "rootDirs": [] // paths are relative to current file
+    // "typeRoots": [] // should be disabled
+    // "types": [] // should be disabled
+  }
+}

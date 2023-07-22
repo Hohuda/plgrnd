@@ -18,5 +18,19 @@
   },
   "editor.formatOnSave": true,
   "eslint.alwaysShowStatus": true,
-  "files.autoSave": "onFocusChange"
+  "files.autoSave": "onFocusChange",
+  "terminal.integrated.scrollback": 10000,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "json.format.enable": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.sortOrderLexicographicOptions": "upper",
+  "jestrunner.jestCommand": "pnpm nx run-many --target='test'"
 }

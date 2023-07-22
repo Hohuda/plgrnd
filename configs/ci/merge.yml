@@ -1,0 +1,126 @@
+recache-merge:
+  stage: prepare
+  only:
+    - merge_requests
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: merge-request-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  script:
+    - rm -rf node_modules
+    - rm -rf tmp/nx-cache
+    - yarn install --frozen-lockfile
+    - yarn cache clean
+
+#----------------------------------------------------------------------------------------
+
+format-merge:
+  stage: format
+  only:
+    - merge_requests
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: merge-request-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  script:
+    - apk update && apk add git
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+    - pnpm install --offline
+    - pnpm nx format:check --base=$NX_BASE --head=$NX_HEAD
+
+#----------------------------------------------------------------------------------------
+
+lint-merge:
+  stage: lint
+  only:
+    - merge_requests
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: merge-request-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  script:
+    - apk update && apk add git
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+    - pnpm install --offline
+    - pnpm nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
+
+#----------------------------------------------------------------------------------------
+
+test-merge:
+  stage: test
+  only:
+    - merge_requests
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: merge-request-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  artifacts:
+    paths:
+      - coverage
+  script:
+    - apk update && apk add git
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+    - pnpm install --offline
+    - pnpm nx affected --base=$NX_BASE --head=$NX_HEAD -t test -c ci --parallel=3
+
+#----------------------------------------------------------------------------------------
+
+build-merge:
+  stage: build
+  only:
+    - merge_requests
+  cache:
+    - key:
+        files:
+          - pnpm-lock.yaml
+      paths:
+        - .pnpm-store
+    - key: merge-request-nx-cache
+      paths:
+        - tmp/nx-cache
+  tags:
+    - build
+  allow_failure: false
+  artifacts:
+    paths:
+      - dist
+  script:
+    - apk update && apk add git
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+    - pnpm install --offline
+    - pnpm nx affected --base=$NX_BASE --head=$NX_HEAD -t build -c production --parallel=3

@@ -1,0 +1,86 @@
+{
+  "extends": ["../../configs/linter/.eslintrc.base.json"],
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "extends": [
+        "airbnb",
+        "airbnb-typescript",
+        "plugin:@nrwl/nx/react-typescript",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "import/no-named-as-default": "off",
+        "consistent-return": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              ["sibling", "parent"],
+              "index",
+              "unknown"
+            ],
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            }
+          }
+        ],
+        "sort-exports/sort-exports": [
+          "error",
+          { "sortDir": "asc", "sortExportKindFirst": "value" }
+        ],
+        "sort-export-all/sort-export-all": "error",
+        "import/extensions": ["off"],
+        "react/require-default-props": ["off"]
+      }
+    },
+    {
+      "files": ["*.jsx"],
+      "extends": [
+        "airbnb",
+        "plugin:@nrwl/nx/react-typescript",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "import/no-named-as-default": "off",
+        "consistent-return": "off",
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              ["sibling", "parent"],
+              "index",
+              "unknown"
+            ],
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            }
+          }
+        ],
+        "sort-exports/sort-exports": [
+          "error",
+          { "sortDir": "asc", "sortExportKindFirst": "value" }
+        ],
+        "sort-export-all/sort-export-all": "error",
+        "react/require-default-props": ["off"]
+      }
+    }
+  ]
+}

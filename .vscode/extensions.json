@@ -3,6 +3,10 @@
     "dbaeumer.vscode-eslint",
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
-    "johnpapa.vscode-peacock"
+    "firsttris.vscode-jest-runner",
+    "kakumei.ts-debug",
+    "formulahendry.auto-rename-tag",
+    "statelyai.stately-vscode",
+    "yoavbls.pretty-ts-errors"
   ]
 }

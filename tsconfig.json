@@ -1,0 +1,22 @@
+{
+  "compileOnSave": true,
+  "buildOnSave": true,
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs"
+  },
+  "include": [
+    "./scripts/",
+    "./tools/",
+    "./consts/",
+    "./types/",
+    "./mocks/",
+    "./configs/",
+    "./jest.*",
+    "./package.json"
+  ],
+  "exclude": ["tmp", "dist"]
+}

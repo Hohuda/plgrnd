@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ESNext"],
+    "moduleDetection": "auto",
+    "noLib": false,
+    "target": "esnext",
+    "useDefineForClassFields": true
+  }
+}

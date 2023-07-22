@@ -1,0 +1,17 @@
+{
+  "extends": "../../configs/ts/tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node"
+  },
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

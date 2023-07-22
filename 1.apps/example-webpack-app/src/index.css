@@ -1,0 +1,40 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+body {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #999999;
+}
+::-webkit-scrollbar-track {
+  background: #dddddd;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}

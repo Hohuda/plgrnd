@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "composite": false, // needs research,
+    "disableReferencedProjectLoad": false,
+    "disableSolutionSearching": false,
+    "disableSourceOfProjectReferenceRedirect": false,
+    "incremental": false // relates to composite
+    // "tsBuildInfoFile": ".tsbuildinfo" // relates to composite
+  }
+}
