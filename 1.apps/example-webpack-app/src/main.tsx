@@ -1,3 +1,4 @@
+import { hello } from "@plgrnd/example-ts-lib";
 import "./index.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
@@ -20,6 +21,7 @@ import { createRoot } from "react-dom/client";
           Hi there, it&aposs an example app! Build with webpack inside of the Nx
           monorepo.
         </p>
+        <p>{hello()}</p>
       </StrictMode>
     );
   } catch (e: unknown) {

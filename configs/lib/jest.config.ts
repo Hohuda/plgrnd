@@ -1,6 +1,6 @@
 import path = require("path");
 
-import { ProjectTypes, getJestConfig, parseSwcJestConfig } from "tools";
+import { ProjectTypes, getJestConfig } from "@plgrnd/tools";
 
 const jestConfig = getJestConfig({
   baseConfigPath: path.join(
@@ -9,7 +9,6 @@ const jestConfig = getJestConfig({
   ),
   projectName: null,
   projectType: ProjectTypes.Lib,
-  swcJestConfig: parseSwcJestConfig(`${__dirname}/.swcrc`),
 });
 
 export default jestConfig;

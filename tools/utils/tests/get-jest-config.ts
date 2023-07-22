@@ -20,14 +20,17 @@ export const parseSwcJestConfig = (swcPath: string): SwcOptions => {
   return swcJestConfig;
 };
 
+// eslint-disable-next-line sort-exports/sort-exports
 export const getJestConfig = ({
   baseConfigPath,
   projectName,
   projectType,
-}: {
+}: // swcJestConfig,
+{
   baseConfigPath: string;
   projectName: string | null;
   projectType: ProjectTypes | null;
+  // swcJestConfig: SwcOptions;
 }): JestConfig => {
   if (!projectName || !projectType)
     throw new Error(
@@ -43,7 +46,7 @@ export const getJestConfig = ({
     displayName: projectName,
     transform: {
       // external swcConfig is disabled for now, default swc config seems to do the job
-      //   "^.+\\.[tj]s$": ["@swc/jest", swcJestConfig],
+      // "^.+\\.[tj]s$": ["@swc/jest", swcJestConfig],
       "^.+\\.[tj]s$": ["@swc/jest"],
     },
     coverageDirectory: `../../coverage/${projectType}/${projectName}`,
