@@ -18,8 +18,8 @@ import { createRoot } from "react-dom/client";
     root.render(
       <StrictMode>
         <p>
-          Hi there, it&aposs an example app! Build with webpack inside of the Nx
-          monorepo.
+          Hi there, it&apos;s an example app! Build with webpack inside of the
+          Nx monorepo.
         </p>
         <p>{hello()}</p>
       </StrictMode>

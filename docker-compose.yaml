@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  plgrnd:
+    build: .
+    image: "plgrnd"
+    container_name: "plgrnd-dev-container"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    command: ["sleep", "infinite"]
+
+  # example-webpack-app:
+  #   image: "plgrnd"
+  #   container_name: "example-webpack-app"
+  #   ports:
+  #     - 3001:3000
+  #   command: ["pnpm", "nx", "run", "example-webpack-app:serve-bundle"]

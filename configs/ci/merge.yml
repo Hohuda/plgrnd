@@ -16,7 +16,7 @@ recache-merge:
   script:
     - rm -rf node_modules
     - rm -rf tmp/nx-cache
-    - yarn install --frozen-lockfile
+    - pnpm install --frozen-lockfile
     - yarn cache clean
 
 #----------------------------------------------------------------------------------------

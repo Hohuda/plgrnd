@@ -1,17 +1,4 @@
 {
-  "workbench.colorCustomizations": {
-    "commandCenter.border": "#15202b99",
-    "sash.hoverBorder": "#d5cf4e",
-    "statusBar.background": "#c2bb2e",
-    "statusBar.foreground": "#15202b",
-    "statusBarItem.hoverBackground": "#999324",
-    "statusBarItem.remoteBackground": "#c2bb2e",
-    "statusBarItem.remoteForeground": "#15202b",
-    "titleBar.activeBackground": "#c2bb2e",
-    "titleBar.activeForeground": "#15202b",
-    "titleBar.inactiveBackground": "#c2bb2e99",
-    "titleBar.inactiveForeground": "#15202b99"
-  },
   "peacock.color": "#c2bb2e",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
@@ -32,5 +19,18 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "explorer.sortOrderLexicographicOptions": "upper",
-  "jestrunner.jestCommand": "pnpm nx run-many --target='test'"
+  "jestrunner.jestCommand": "pnpm nx run-many --target='test'",
+  "workbench.colorCustomizations": {
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#d5cf4e",
+    "statusBar.background": "#c2bb2e",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#999324",
+    "statusBarItem.remoteBackground": "#c2bb2e",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#c2bb2e",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#c2bb2e99",
+    "titleBar.inactiveForeground": "#15202b99"
+  }
 }

@@ -109,7 +109,8 @@
       "configurations": {
         "development": {
           "optimization": false,
-          "resolve": {}
+          "resolve": {},
+          "outputHashing": "none"
         },
         "production": {
           "outputHashing": "all"
@@ -131,9 +132,9 @@
       "options": {
         "buildTarget": "example-webpack-app:build",
         "hmr": true,
-        "host": "localhost",
+        "host": "0.0.0.0",
         "port": 3000,
-        "baseHref": "/",
+        "baseHref": "/index.html",
         "ssl": true,
         "sslCert": "dist/ssl-certs/localhost/.cert",
         "sslKey": "dist/ssl-certs/localhost/.key"
