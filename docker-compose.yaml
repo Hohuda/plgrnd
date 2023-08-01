@@ -1,15 +1,23 @@
-version: "3.8"
+version: "3.9"
+
+volumes:
+  node_modules:
+  pnpm-store:
 
 services:
   plgrnd:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     image: "plgrnd"
     container_name: "plgrnd-dev-container"
     ports:
       - 3000:3000
     volumes:
       - .:/app
-    command: ["sleep", "infinite"]
+      - node_modules:/app/node_modules
+      - pnpm-store:/app/.pnpm-store
+    command: sleep infinite
 
   # example-webpack-app:
   #   image: "plgrnd"

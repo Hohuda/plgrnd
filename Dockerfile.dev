@@ -6,14 +6,15 @@ ENV PYTHONUNBUFFERED=1
 # install dependencies for node-gyp 
 # because @nx/workspace uses @parcel/watcher that uses parcel that uses node-gyp
 # https://github.com/nodejs/node-gyp#on-unix
-RUN apk add --update --no-cache python3 make g++
+RUN apk add --update --no-cache python3 make g++ zsh
 
 WORKDIR /app
 
 RUN npm install -g pnpm
 
-COPY .npmrc package.json pnpm-lock.yaml ./
-
-RUN pnpm install --frozen-lockfile
-
 COPY . .
+
+RUN pnpm config set store-dir ./.pnpm-store
+# maybe useful for build image, not sure about dev image
+# RUN pnpm install --frozen-lockfile
+RUN pnpm install

@@ -8,6 +8,9 @@ tmp
 # dependencies
 node_modules
 
+# dev-container dependencies
+dev-container
+
 # IDEs and editors
 /.idea
 .project

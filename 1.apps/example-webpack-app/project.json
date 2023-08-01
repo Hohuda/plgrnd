@@ -134,6 +134,7 @@
         "hmr": true,
         "host": "0.0.0.0",
         "port": 3000,
+        "publicHost": "auto://0.0.0.0:0/ws",
         "baseHref": "/index.html",
         "ssl": true,
         "sslCert": "dist/ssl-certs/localhost/.cert",

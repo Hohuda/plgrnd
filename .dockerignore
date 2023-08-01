@@ -1,6 +1,5 @@
 dist
 tmp
 coverage
-.env
 .pnpm-store
 node_modules

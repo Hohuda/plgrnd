@@ -1,4 +1,32 @@
-# Playground
+# Playground monorepo
+
+## Development
+
+Development is done via docker dev container, so run
+
+```
+your-system$ docker-compose up -d
+```
+
+and then connect to it with VSCode extension.
+
+Then you use nx to run and develop apps/libs, like that
+
+```
+inside-container$ pnpm nx run example-webpack-app:serve
+```
+
+Or proceed to app/lib directory readme:
+
+apps:
+
+1. [example-webpack-app](1.apps/example-webpack-app/README.md)
+
+libs:
+
+1. [example-ts-lib](2.libs.example-ts-lib/README.md)
+
+---
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 

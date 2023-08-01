@@ -89,6 +89,9 @@ const webpackConfig = composePlugins(
           template: "./src/index.html",
           chunks: commonChunks,
           chunksSortMode: "manual",
+          favicon: "./assets/Minecon.jpg",
+          scriptLoading: "module",
+          title: "Index | Example Webpack App",
         }),
         new WebpackNoModulePlugin({
           filePatterns: ["polyfill.**.js", "polyfills.**.js"],
