@@ -10,7 +10,8 @@
     "check:pipeline": "pnpm nx format:check && pnpm nx affected -t lint --parallel=3 && pnpm nx affected --base=$NX_BASE --head=$NX_HEAD -t test -c ci --parallel=1 && pnpm nx affected --base=$NX_BASE --head=$NX_HEAD -t build -c production --parallel=1 --verbose",
     "check:all": "pnpm nx format:check && pnpm nx run-many -t lint --parallel=3  && pnpm nx run-many -t test -c ci --parallel=1 && pnpm nx run-many -t build -c production --parallel=1",
     "check:all:no-cache": "pnpm nx format:check && pnpm nx run-many -t lint --parallel=3 --skip-nx-cache && pnpm nx run-many -t test -c ci --parallel=1 --skip-nx-cache && pnpm nx run-many -t build -c production --parallel=1 --skip-nx-cache",
-    "clean-setup": "rm -rf '.pnpm-store' && rm -rf 'node_modules' && rm -rf tmp && rm -rf dist && pnpm install"
+    "clean-setup": "rm -rf '.pnpm-store' && rm -rf 'node_modules' && rm -rf tmp && rm -rf dist && pnpm install",
+    "cleanest-setup": "npm rm -g pnpm && npm install -g pnpm && pnpm run clean-setup"
   },
   "private": true,
   "dependencies": {
