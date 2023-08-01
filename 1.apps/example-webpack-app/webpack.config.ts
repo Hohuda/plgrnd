@@ -1,7 +1,7 @@
 import { resolve } from "path";
 
-import { withReact } from "@nrwl/react";
-import { composePlugins, withNx } from "@nrwl/webpack";
+import { withReact } from "@nx/react";
+import { composePlugins, withNx } from "@nx/webpack";
 import * as HtmlWebpackPlugin from "html-webpack-plugin";
 import * as TerserPlugin from "terser-webpack-plugin";
 import { withExampleAppEnvsCheck, isRuleSetRule } from "tools";

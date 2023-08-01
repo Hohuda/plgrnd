@@ -5,7 +5,7 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/rollup:rollup",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/./2.libs/example-ts-lib",
@@ -13,7 +13,9 @@
         "tsConfig": "2.libs/example-ts-lib/tsconfig.lib.json",
         "assets": [],
         "project": "2.libs/example-ts-lib/package.json",
-        "compiler": "swc"
+        "compiler": "swc",
+        "babelUpwardRootMode": true,
+        "updateBuildableProjectDepsInPackageJson": true
       }
     },
     "lint": {
@@ -24,7 +26,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "2.libs/example-ts-lib/jest.config.ts",

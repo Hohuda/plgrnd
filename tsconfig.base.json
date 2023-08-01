@@ -16,8 +16,8 @@
   },
   "exclude": ["../../tmp", "../../dist"],
   "files": [
-    "./node_modules/@nrwl/react/typings/cssmodule.d.ts",
-    "./node_modules/@nrwl/react/typings/image.d.ts",
+    "./node_modules/@nx/react/typings/cssmodule.d.ts",
+    "./node_modules/@nx/react/typings/image.d.ts",
     "./types/webpack-nomodule-plugin.d.ts"
   ]
 }

@@ -4,6 +4,6 @@
 
 // !!don't rewrite in ESM style!!
 // jest only understands CommonJs syntax in this case
-const nxPreset = require("@nrwl/jest/preset").default;
+const nxPreset = require("@nx/jest/preset").default;
 
 module.exports = { ...nxPreset };

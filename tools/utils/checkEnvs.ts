@@ -1,6 +1,6 @@
 import { EXAMPLE_APP_URL_REQUIRED_ENVS } from "consts";
 
-import type { NxWebpackPlugin } from "@nrwl/webpack";
+import type { NxWebpackPlugin } from "@nx/webpack";
 
 export function withEnvsCheck(
   envsObject: Record<string, string | undefined>
