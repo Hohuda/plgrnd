@@ -1,4 +1,4 @@
-import { EXAMPLE_APP_URL_REQUIRED_ENVS } from "consts";
+import { EXAMPLE_APP_URL_REQUIRED_ENVS } from "../consts";
 
 import type { NxWebpackPlugin } from "@nx/webpack";
 

@@ -3,9 +3,9 @@ import baseConfig from "./jest.config.base";
 export default {
   ...baseConfig,
   moduleFileExtensions: ["ts", "js", "html", "tsx", "jsx"],
-  snapshotResolver: "../../configs/tests/snapshot-resolver.ts",
+  snapshotResolver: "../../configs/tests/setup/snapshot-resolver.ts",
   moduleNameMapper: {
     ...baseConfig.moduleNameMapper,
-    "\\.svg$": "<rootDir>/../../mocks/svg.mock.ts",
+    "\\.svg$": "<rootDir>/../../configs/tests/mocks/svg.mock.ts",
   },
 };

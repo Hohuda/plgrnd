@@ -11,10 +11,11 @@
     ],
     "paths": {
       "@plgrnd/example-ts-lib": ["2.libs/example-ts-lib/src/index.ts"],
+      "@plgrnd/repo-service": ["2.libs/repo-service/src/index.ts"],
       "@plgrnd/tools": ["tools/index.ts"]
     }
   },
-  "exclude": ["../../tmp", "../../dist"],
+  "exclude": ["tmp", "dist", "node_modules"],
   "files": [
     "./node_modules/@nx/react/typings/cssmodule.d.ts",
     "./node_modules/@nx/react/typings/image.d.ts",

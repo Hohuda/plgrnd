@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "@plgrnd",
+  "npmScope": "plgrnd",
   "workspaceLayout": {
     "appsDir": "1.apps",
     "libsDir": "2.libs"
@@ -20,7 +20,12 @@
       "inputs": ["production", "^production"]
     },
     "test": {
-      "inputs": ["default", "^production"]
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js",
+        "{workspaceRoot}/jest.preset.js"
+      ]
     },
     "e2e": {
       "inputs": ["default", "^production"]
@@ -33,7 +38,8 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/src/test-setup.[jt]s"
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s"
     ],
     "sharedGlobals": ["{workspaceRoot}/babel.config.json"]
   },
@@ -46,9 +52,10 @@
         "babel": true
       },
       "library": {
-        "style": "scss",
+        "style": "styled-components",
         "linter": "eslint",
-        "unitTestRunner": "vitest"
+        "unitTestRunner": "jest",
+        "bundler": "rollup"
       },
       "component": {
         "style": "scss"

@@ -11,9 +11,7 @@
   "include": [
     "./scripts/",
     "./tools/",
-    "./consts/",
     "./types/",
-    "./mocks/",
     "./configs/",
     "./jest.*",
     "./package.json"

@@ -2,9 +2,10 @@ import { resolve } from "path";
 
 import { withReact } from "@nx/react";
 import { composePlugins, withNx } from "@nx/webpack";
+import { withExampleAppEnvsCheck } from "@plgrnd/repo-service";
+import { isRuleSetRule } from "@plgrnd/tools";
 import * as HtmlWebpackPlugin from "html-webpack-plugin";
 import * as TerserPlugin from "terser-webpack-plugin";
-import { withExampleAppEnvsCheck, isRuleSetRule } from "tools";
 import { parseSwcConfig } from "tools/utils/parse-swc-config";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import { merge } from "webpack-merge";

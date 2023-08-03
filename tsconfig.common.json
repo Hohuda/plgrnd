@@ -31,13 +31,13 @@
     "paths": {}, // paths are relative to baseUrl
     "resolveJsonModule": true,
     "rootDir": "./",
-    "rootDirs": [], // paths are relative to current file
+    // "rootDirs": [], // paths are relative to current file
     // "typeRoots": [], // configured in upper level config
     // "types": [], // configured in upper level config
 
     //emit
 
-    "declaration": true,
+    "declaration": false,
     "declarationDir": "./dist/types",
     "declarationMap": true,
     "downlevelIteration": true,
@@ -111,5 +111,11 @@
 
     // extra
     "ignoreDeprecations": "5.0" // disabled because requires migration to verbatimModuleSyntax, which seem very difficult at this moment
+
+    // nx example
+    // "emitDecoratorMetadata": true,
+    // "experimentalDecorators": true,
+    // "skipLibCheck": true,
+    // "skipDefaultLibCheck": true,
   }
 }
