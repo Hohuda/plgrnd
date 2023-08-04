@@ -44,7 +44,7 @@
     "emitBOM": false,
     "emitDeclarationOnly": false, // allows to disable ts -> js transpilation, if another transpiler is used
     "importHelpers": true, // tslib runtime required for this to work
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": false,
     "inlineSourceMap": false,
     "inlineSources": false,
     "mapRoot": "../../dist/mapRoot", // can be configured for debugging
@@ -54,7 +54,7 @@
     "noEmitOnError": false,
     "outDir": "./dist", // can be specified in custom build routine
     // "outFile": "", // used only for module none, AMD, System
-    "preserveConstEnums": false,
+    "preserveConstEnums": false, // depends on verbatimModuleSyntax
     "preserveValueImports": false, // may be turned on with isolatedModules
     "removeComments": false,
     "sourceMap": true,
@@ -107,10 +107,7 @@
     // output
     "noErrorTruncation": true,
     "preserveWatchOutput": false,
-    "pretty": true,
-
-    // extra
-    "ignoreDeprecations": "5.0" // disabled because requires migration to verbatimModuleSyntax, which seem very difficult at this moment
+    "pretty": true
 
     // nx example
     // "emitDecoratorMetadata": true,
